@@ -1,22 +1,35 @@
+import { useState } from "react";
 const initialGameBoard = [
-    [null , null,null],
-    [null , null,null],
-    [null , null,null],
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
 ];
-export default function GameBord(){
-    return (
-        <ol id="game-bored">
-            {initialGameBoard.map((row , rowIndex)=> (
-                <li key={rowIndex }>
-                    <ol>
-                        {row.map((playerSympol , colIndex) => (
-                            <li key={colIndex}>
-                                <button>{playerSympol}</button>
-                            </li>
-                        ))}
-                    </ol>
-                </li>
+export default function GameBord() {
+  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+  function handleSelectSquare(rowIndex, colIndex) {
+    setGameBoard((prevGameBoard) => {
+      const updatedBoard = [
+        ...prevGameBoard.map((innerArray) => [...innerArray]),
+      ];
+      updatedBoard[rowIndex][colIndex] = "X";
+      return updatedBoard;
+    });
+  }
+  return (
+    <ol id="game-board">
+      {gameBoard.map((row, rowIndex) => (
+        <li key={rowIndex}>
+          <ol>
+            {row.map((playerSympol, colIndex) => (
+              <li key={colIndex}>
+                <button onClick={() => handleSelectSquare(rowIndex, colIndex)}>
+                  {playerSympol}
+                </button>
+              </li>
             ))}
-        </ol>
-    )
+          </ol>
+        </li>
+      ))}
+    </ol>
+  );
 }
