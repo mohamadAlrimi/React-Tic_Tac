@@ -25,11 +25,11 @@ function App() {
   const [gameTurns, setGameTurns] = useState([]);
   // const[hasWinner,setHasWinner]=useState(false);
   const activePlayer = deriveActivePlayer(gameTurns);
-  let gameBoard=initialGameBoard;
-  for(const turn of gameTurns){
-    const{square ,player }=turn;
-    const {row , col } = square;
-    gameBoard[row][col] = player ;
+  let gameBoard = initialGameBoard;
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+    gameBoard[row][col] = player;
   }
   // let currentPlayer ="X";
   //     if( gameTurns .length >0 && gameTurns [0].player ==="X"){
@@ -37,15 +37,22 @@ function App() {
   //     }
   // const [activePlayer, setActivePlayer] = useState("X");
   let winner = null;
-  for(const combinations of WINNING_COMBINATIONS){
-    const firstSquareSymobl=gameBoard[combinations[0].row][combinations[0].column];
-    const secondSquareSymobl=gameBoard[combinations[1].row][combinations[1].column];
-    const thirdSquareSymobl=gameBoard[combinations[2].row][combinations[2].column];
-    if(firstSquareSymobl&& firstSquareSymobl === secondSquareSymobl &&  firstSquareSymobl === thirdSquareSymobl){
- winner = firstSquareSymobl;
+  for (const combinations of WINNING_COMBINATIONS) {
+    const firstSquareSymobl =
+      gameBoard[combinations[0].row][combinations[0].column];
+    const secondSquareSymobl =
+      gameBoard[combinations[1].row][combinations[1].column];
+    const thirdSquareSymobl =
+      gameBoard[combinations[2].row][combinations[2].column];
+    if (
+      firstSquareSymobl &&
+      firstSquareSymobl === secondSquareSymobl &&
+      firstSquareSymobl === thirdSquareSymobl
+    ) {
+      winner = firstSquareSymobl;
     }
   }
-  const hasDraw =gameTurns.length === 9 && !winner;
+  const hasDraw = gameTurns.length === 9 && !winner;
   function handleSelectSquare(rowIndex, colIndex) {
     // setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     setGameTurns((prevTurns) => {
@@ -76,7 +83,7 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner}/>}
+        {(winner || hasDraw) && <GameOver winner={winner} />}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
