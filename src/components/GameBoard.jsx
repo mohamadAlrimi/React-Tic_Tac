@@ -29,7 +29,9 @@ export default function GameBord({onSelectSquare ,turns }) {
           <ol>
             {row.map((playerSympol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={()=> onSelectSquare(rowIndex,colIndex) }>
+                <button onClick={()=> onSelectSquare(rowIndex,colIndex) }
+                  disabled={playerSympol !=null}
+                  >
                   {playerSympol}
                 </button>
               </li>
